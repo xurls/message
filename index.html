@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>xihale.top</title>
+        <style>
+            html{
+                height: 100%;
+                width: 100%;
+            }
+            iframe{
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                border: none;
+            }
+        </style>
+    </head>
+    <body>
+        <iframe id="page" src="https://101.33.248.217:11823"></iframe>
+        <script>
+            const Page=`https://xihale.top/`;
+            document.getElementById("page").src=Page+location.hash.slice(1);
+                window.addEventListener("message",(e)=>{
+                    // console.log(e.data);
+                    const bs=e.data.indexOf(' ');
+                    const type=e.data.slice(0,bs);
+                    const data=e.data.slice(bs+1);
+                    console.log(data);
+                    if(type=="history" && window.location.hash!=(data='#'+data))
+                        window.history.pushState({},0,location.origin+data);
+                    else if(type=="title")
+                        document.title=data;
+                });
+            window.addEventListener("hashchange",()=>{
+                document.getElementById("page").src=Page+location.hash.slice(1);
+            });
+        </script>
+    </body>
+</html>
